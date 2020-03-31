@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-//主页
 class MinePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -9,19 +8,12 @@ class MinePage extends StatefulWidget {
 }
 
 class MinePageState extends State<MinePage> {
-  int secondsLeft = 3;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text("开发中，敬请期待..."),
-      ),
+    return ListView(
+      children: <Widget>[
+        Text('aa'),
+      ],
     );
   }
 }

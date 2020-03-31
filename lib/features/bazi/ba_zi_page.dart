@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:flutter_website/conf/application.dart';
 import 'package:flutter_website/conf/config.dart';
 import 'package:flutter_website/conf/routers.dart';
 import 'package:flutter_website/utils/utils.dart';
@@ -23,12 +22,6 @@ class BaZiPageState extends State<BaZiPage> {
   FocusNode _defaultNode = FocusNode();
 
   DateTime _birthTime = _initialDate;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,16 +85,26 @@ class BaZiPageState extends State<BaZiPage> {
                     },
                   ),
                   const Text('阳历'),
-                  Radio<bool>(
-                    value: true,
-                    groupValue: _isChineseCalendar,
-                    onChanged: (value) {
-                      setState(() {
-                        _isChineseCalendar = value;
-                      });
-                    },
+                  SizedBox(
+                    width: 20,
                   ),
-                  const Text('农历'),
+                  SizedBox(
+                    width: 80,
+                    child: FlatButton(
+                      color: AppConfig.theme.primaryColor,
+                      highlightColor: AppConfig.theme.primaryColor,
+                      colorBrightness: Brightness.dark,
+                      splashColor: Colors.grey,
+                      child: Text("转阳历"),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(9.0)),
+                      onPressed: () {
+                        String url = 'http://tool.ckd.cc/calendar/';
+                        AppRouters.navigateTo(context, AppRouters.WEBVIEW,
+                            params: {'url': url});
+                      },
+                    ),
+                  )
                 ],
               ),
               Row(
@@ -170,10 +173,13 @@ class BaZiPageState extends State<BaZiPage> {
                   var confirmed = await _showConfirmPop();
                   if (confirmed != null && confirmed) {
                     String name = _nameCtr.text.trim();
-                    var url =
-                        ' ${AppRouters.BAZI_DETAIL_PAGE}?name=$name&birthtime=${_birthTime.millisecondsSinceEpoch}&isMale=$_isMale&isChineseCalendar=$_isChineseCalendar';
-                    print(url);
-                    Application.router.navigateTo(context, url);
+                    AppRouters.navigateTo(context, AppRouters.BAZI_DETAIL_PAGE,
+                        params: {
+                          'name': name,
+                          'birthtime': _birthTime.millisecondsSinceEpoch,
+                          'isMale': _isMale,
+                          'isChineseCalendar': _isChineseCalendar,
+                        });
                   }
                 },
               )),
@@ -186,7 +192,7 @@ class BaZiPageState extends State<BaZiPage> {
     return isDate
         ? '${_isChineseCalendar ? '农历' : '阳历'} '
             '${formatDate(_birthTime, ['yyyy', '年', 'mm', '月', 'dd', '日'])}'
-        : formatDate(_birthTime, ['hh', '时', 'nn', '分', 'ss', '秒']);
+        : formatDate(_birthTime, ['HH', '时', 'nn', '分', 'ss', '秒']);
   }
 
   void _showDatePop() {

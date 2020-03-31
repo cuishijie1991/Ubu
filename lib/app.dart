@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_website/features/bazi/ba_zi_page.dart';
 import 'package:flutter_website/features/horoscope/horoscope_page.dart';
-import 'package:flutter_website/pages/mine.dart';
-
+import 'package:flutter_website/pages/mine_page.dart';
 import 'conf/config.dart';
 
 //主页
