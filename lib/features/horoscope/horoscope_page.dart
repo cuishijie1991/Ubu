@@ -1,4 +1,3 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_website/conf/application.dart';
@@ -49,12 +48,14 @@ class HItemWidget extends StatelessWidget {
                 context, '${AppRouters.HOROSCOPE_DETAIL_PAGE}?id=${h.astroid}');
           },
           child: Column(children: <Widget>[
-            Image.network(
-              h.pic,
-              width: 60,
-              height: 60,
-              fit: BoxFit.fill,
-            ),
+            ClipRRect(
+                borderRadius: BorderRadius.circular(3),
+                child: Image.network(
+                  h.pic,
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.fill,
+                )),
             Padding(
               child: Text(
                 h.astroname,

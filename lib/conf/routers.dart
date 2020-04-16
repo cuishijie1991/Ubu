@@ -8,9 +8,11 @@ import '../app.dart';
 import 'router_handler.dart';
 
 class AppRouters {
-  static TransitionType defaultTransitionType = TransitionType.inFromRight;
+  static const TransitionType defaultTransitionType =
+      TransitionType.inFromRight;
   static const String APP = '/app';
   static const String WEBVIEW = '/webview';
+  static const String LOGIN = '/login';
   static const String HOROSCOPE_PAGE = '/horoscope_page';
   static const String HOROSCOPE_DETAIL_PAGE = '/horoscope_detail_page';
   static const String BAZI_DETAIL_PAGE = '/bazi_detail_page';
@@ -33,11 +35,12 @@ class AppRouters {
           handler: baziDetailPageHandler, transitionType: defaultTransitionType)
       ..define(WEBVIEW,
           handler: webviewHandler, transitionType: defaultTransitionType)
-      ..printTree();
+      ..define(LOGIN, handler: loginHandler);
   }
 
-  static navigateTo(BuildContext context, String path,
-      {Map<String, dynamic> params, TransitionType transition}) {
+  static Future<dynamic> navigateTo(BuildContext context, String path,
+      {Map<String, dynamic> params,
+      TransitionType transition: defaultTransitionType}) {
     if (params != null && params.isNotEmpty) {
       String query;
       for (var key in params.keys) {
@@ -52,6 +55,6 @@ class AppRouters {
       path += query;
     }
     print(path);
-    _router.navigateTo(context, path, transition: transition);
+    return _router.navigateTo(context, path, transition: transition);
   }
 }

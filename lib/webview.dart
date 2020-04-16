@@ -28,6 +28,8 @@ class WebviewPageState extends State<WebviewPage> {
       withZoom: true,
       withLocalStorage: true,
       hidden: true,
+      withJavascript: true,
+      appCacheEnabled: true,
     );
   }
 }

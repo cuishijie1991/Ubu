@@ -1,4 +1,5 @@
 //星座详情页面
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_website/features/horoscope/config.dart';
@@ -45,14 +46,17 @@ class HoroscopeDetailPageState extends State<HoroscopeDetailPage> {
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  List<Widget> buildContent() {
     List<Widget> children = [];
     children
       ..addAll(_buildTodayPart() ?? [])
       ..addAll(_buildWeekPart() ?? [])
       ..addAll(_buildYearPart() ?? []);
+    return children;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar('${_h.astroname} (${_h.date})').build(context),
       body: PageLoadWidget(_loadState,
@@ -60,7 +64,7 @@ class HoroscopeDetailPageState extends State<HoroscopeDetailPage> {
               ? Container()
               : ListView(
                   padding: EdgeInsets.only(left: 20, right: 20),
-                  children: children,
+                  children: buildContent(),
                 ),
           errorRetry: _fetchFromServer),
     );
@@ -105,7 +109,15 @@ class HoroscopeDetailPageState extends State<HoroscopeDetailPage> {
 
     return [
       SizedBox(height: 20),
-      Text('今日运势', style: titleStyle),
+      Row(
+        children: <Widget>[
+          Text('今日运势', style: titleStyle),
+          Text(
+            '（${formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd])}）',
+            style: TextStyle(color: Colors.black54),
+          )
+        ],
+      ),
       SizedBox(height: 10),
       Row(
         children: <Widget>[

@@ -1,12 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:flutter_website/utils/utils.dart';
+import 'package:flutter_website/conf/application.dart';
+import 'package:flutter_website/events/app_tab_change_event.dart';
+import 'package:flutter_website/models/home/Banner.dart' as B;
 
 class HomeBannerWidget extends StatelessWidget {
-  final List<String> pics = [
-    "assets/images/3.0x/bg_splash.jpg",
-    "assets/images/3.0x/bg_splash.jpg",
-  ];
+  final List<B.Banner> banners;
+
+  const HomeBannerWidget(this.banners) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +24,16 @@ class HomeBannerWidget extends StatelessWidget {
           outer: true,
           itemBuilder: (BuildContext context, int index) {
             return Container(
-              child: Image.asset(
-                pics[index],
+              child: Image.network(
+                banners[index].icon,
                 fit: BoxFit.cover,
               ),
             );
           },
-          itemCount: pics.length,
-          onIndexChanged: (index) {
-//            Tool.toast("$index is changed");
+          itemCount: banners.length,
+          onTap: (index) {
+            print('ontap  banner $index');
+            Application.eventBus.fire(HomeBottomTabChangeEvent('BaZi'));
           },
           scrollDirection: Axis.horizontal,
           autoplay: true,

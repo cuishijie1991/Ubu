@@ -95,11 +95,11 @@ class BaZiPageState extends State<BaZiPage> {
                       highlightColor: AppConfig.theme.primaryColor,
                       colorBrightness: Brightness.dark,
                       splashColor: Colors.grey,
-                      child: Text("转阳历"),
+                      child: Text("查阳历"),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(9.0)),
                       onPressed: () {
-                        String url = 'http://tool.ckd.cc/calendar/';
+                        String url = 'https://m.baidu.com';
                         AppRouters.navigateTo(context, AppRouters.WEBVIEW,
                             params: {'url': url});
                       },
@@ -190,7 +190,7 @@ class BaZiPageState extends State<BaZiPage> {
 
   String _getFormatDate(bool isDate) {
     return isDate
-        ? '${_isChineseCalendar ? '农历' : '阳历'} '
+        ? '${_isChineseCalendar ? '阴历' : '阳历'} '
             '${formatDate(_birthTime, ['yyyy', '年', 'mm', '月', 'dd', '日'])}'
         : formatDate(_birthTime, ['HH', '时', 'nn', '分', 'ss', '秒']);
   }

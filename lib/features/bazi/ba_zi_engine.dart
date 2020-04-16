@@ -50,7 +50,7 @@ class PaiPanEngine {
   String siZhuString;
 
   String getBasicInfo() {
-    return '姓名：$_name   性别：$genderString\n阳历：$solarString\n农历：$lunarString\n纳音：$nayinString';
+    return '姓名：$_name   性别：$genderString\n阳历：$solarString\n阴历：$lunarString\n纳音：$nayinString';
   }
 
   void init() {
